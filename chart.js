@@ -157,6 +157,13 @@ function entities(e) {
 			.attr("cy", function(d) {return d.y; });
 }
 
+function amounts(e) {
+	node.each(moveToFunds(e.alpha));
+
+		node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) {return d.y; });
+}
+
 function types(e) {
 	node.each(moveToFunds(e.alpha));
 
