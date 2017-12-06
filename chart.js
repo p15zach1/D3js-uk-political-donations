@@ -328,7 +328,7 @@ function mouseover(d, i) {
         .style("top", (parseInt(d3.select(this).attr("cy") - (d.radius+150)) + offset.top) + "px")
 		.html(infoBox)
 			.style("display","block");
-	var speech = new SpeechSynthesisUtterance("Donator    " + donor + "     Amount     " + amount + "     pounds");
+	var speech = new SpeechSynthesisUtterance("The donator is " + donor + "and the given amount is " + amount + " pounds");
 	window.speechSynthesis.speak(speech);
 	}
 
