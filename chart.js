@@ -48,7 +48,6 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
-		$("#view-amount-type").fadeOut(250);
 		return total();
 		//location.reload();
 	}
@@ -58,7 +57,6 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-party-type").fadeIn(1000);
-		$("#view-amount-type").fadeOut(250);
 		return partyGroup();
 	}
 	if (name === "group-by-donor-type") {
@@ -67,7 +65,6 @@ function transition(name) {
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-donor-type").fadeIn(1000);
-		$("#view-amount-type").fadeOut(250);
 		return donorType();
 	}
 	if (name === "group-by-money-source")
@@ -76,17 +73,7 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeIn(1000);
-	        $("#view-amount-type").fadeOut(250);
 		return fundsType();
-	}
-        if (name === "group-by-amount"){
-		$("#initial-content").fadeOut(250);
-		$("#value-scale").fadeOut(250);
-		$("#view-donor-type").fadeOut(250);
-		$("#view-party-type").fadeOut(250);
-		$("#view-source-type").fadeOut(1000);
-		$("#view-amount-type").fadeIn(250);
-		return amountType();
 	}
 
 function start() {
@@ -156,14 +143,6 @@ function fundsType() {
 		.start();
 }
 
-function amountType() {
-	force.gravity(0)
-		.friction(0.85)
-		.charge(function(d) { return -Math.pow(d.radius, 2) / 2.5; })
-		.on("tick", amounts)
-		.start();
-}
-
 function parties(e) {
 	node.each(moveToParties(e.alpha));
 
@@ -189,13 +168,6 @@ function types(e) {
 function all(e) {
 	node.each(moveToCentre(e.alpha))
 		.each(collide(0.001));
-
-		node.attr("cx", function(d) { return d.x; })
-			.attr("cy", function(d) {return d.y; });
-}
-
-function amounts(e) {
-	node.each(moveToAmount(e.alpha));
 
 		node.attr("cx", function(d) { return d.x; })
 			.attr("cy", function(d) {return d.y; });
@@ -265,24 +237,6 @@ function moveToFunds(alpha) {
 			centreX = entityCentres[d.entity].x + 60;
 			centreY = 380;
 		}
-		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
-		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
-	};
-}
-
-function moveToAmount(alpha) {
-	return function(d) {
-		if (d.value <= 100000) { 
-			centreX = svgCentre.x ;
-			centreY = svgCentre.y -50;
-		} else if (d.value <= 500000) { 
-			centreX = svgCentre.x + 150;
-			centreY = svgCentre.y ;
-		} else if (d.value <= 20000000){ 
-			centreX = svgCentre.x + 300;
-			centreY = svgCentre.y + 50;
-		}
-
 		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
 		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
 	};
@@ -397,5 +351,3 @@ $(document).ready(function() {
     return d3.csv("data/7500up.csv", display);
 
 });
-
-
