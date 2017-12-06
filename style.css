@@ -40,6 +40,31 @@ li {
     width: 272px;
 }
 
+/* Amount view */
+#view-amount-type {
+    height: 100%;
+}
+#amount1 {
+    left: 200px;
+    top: 200px;
+    position: absolute;
+}
+#amount2 {
+    left: 400px;
+    top: 300px;
+    position: absolute; 
+}
+#amount3 {
+    left: 600px;
+    top: 400px;
+    position: absolute; 
+}
+#amount4 {
+    top: 100px;
+    left: 500px;
+    position: absolute;
+}
+
 /*  Public or private funds view */
 
 #public-or-private-money {
@@ -73,31 +98,6 @@ li {
 #libdem {
     background: rgba(255, 61, 255, 0.8);
     top: 550px;
-}
-
-/* Amount view */
-#view-amount-type {
-    height: 100%;
-}
-#amount1 {
-    left: 200px;
-    top: 200px;
-    position: absolute;
-}
-#amount2 {
-    left: 400px;
-    top: 300px;
-    position: absolute; 
-}
-#amount3 {
-    left: 600px;
-    top: 400px;
-    position: absolute; 
-}
-#amount4 {
-    top: 100px;
-    left: 500px;
-    position: absolute;
 }
 
 /*	Donor type layout */
