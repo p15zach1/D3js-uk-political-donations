@@ -26,7 +26,7 @@ li {
 }
 
 /* Initial appearance on load */
-#view-party-type, #view-donor-type, #view-source-type {
+#view-party-type, #view-donor-type, #view-source-type, #view-amount-type {
     display: none;
 }
 
@@ -73,6 +73,31 @@ li {
 #libdem {
     background: rgba(255, 61, 255, 0.8);
     top: 550px;
+}
+
+/* Amount view */
+#view-amount-type {
+    height: 100%;
+}
+#amount1 {
+    left: 200px;
+    top: 200px;
+    position: absolute;
+}
+#amount2 {
+    left: 400px;
+    top: 300px;
+    position: absolute; 
+}
+#amount3 {
+    left: 600px;
+    top: 400px;
+    position: absolute; 
+}
+#amount4 {
+    top: 100px;
+    left: 500px;
+    position: absolute;
 }
 
 /*	Donor type layout */
