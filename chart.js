@@ -325,11 +325,9 @@ function mouseover(d, i) {
 	mosie.classed("active", true);
 	d3.select(".tooltip")
   	.style("left", (parseInt(d3.select(this).attr("cx") - 80) + offset.left) + "px")
-        .style("top", (parseInt(d3.select(this).attr("cy") - (d.radius+150)) + offset.top) + "px")
+    .style("top", (parseInt(d3.select(this).attr("cy") - (d.radius+150)) + offset.top) + "px")
 		.html(infoBox)
 			.style("display","block");
-	var speech = new SpeechSynthesisUtterance("The donator is " + donor + " and the given amount is " + amount + " pounds");
-	window.speechSynthesis.speak(speech);
 	}
 
 function mouseout() {
@@ -340,7 +338,6 @@ function mouseout() {
 
 		d3.select(".tooltip")
 			.style("display", "none");
-	        window.speechSynthesis.cancel();
 		}
 
 $(document).ready(function() {
@@ -351,3 +348,5 @@ $(document).ready(function() {
     return d3.csv("data/7500up.csv", display);
 
 });
+
+
