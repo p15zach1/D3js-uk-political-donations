@@ -203,16 +203,17 @@ function all(e) {
 
 function moveToAmount(alpha) {
 	return function(d) {
-		
-		if (d.value <= 50000) { 
-			centreX = svgCentre.x ;
-			centreY = svgCentre.y -50;
-		} else if (d.value <= 350000) { 
-			centreX = svgCentre.x + 150;
-			centreY = svgCentre.y ;
+		var centreX;
+		var centreY;
+		if (d.value <= 100000) { 
+			centreX = 300;
+			centreY = 500;
+		} else if (d.value <= 500000) { 
+			centreX = 750;
+			centreY = 400;
 		} else if (d.value <= 20000000){ 
-			centreX = svgCentre.x + 300;
-			centreY = svgCentre.y + 50;
+			centreX = 300;
+			centreY = 300;
 		}
 
 		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
