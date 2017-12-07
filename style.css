@@ -41,7 +41,8 @@ li {
 }
 
 #view-amount-type {
-    height: 100%;
+    left: 450px;
+    width: 370px;
 }
 #amount1 {
     left: -40px;
