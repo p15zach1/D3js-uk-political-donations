@@ -9,7 +9,7 @@ var radius = d3.scale.sqrt().range([10, 20]);
 var partyCentres = { 
     con: { x: w / 3, y: h / 3.3}, 
     lab: {x: w / 3, y: h / 2.3}, 
-    lib: {x: w / 3	, y: h / 1.8}
+    lib: {x: w / 3, y: h / 1.8}
   };
 
 var entityCentres = { 
@@ -18,7 +18,7 @@ var entityCentres = {
 		other: {x: w / 1.15, y: h / 1.9},
 		society: {x: w / 1.12, y: h  / 3.2 },
 		pub: {x: w / 1.8, y: h / 2.8},
-		individual: {x: w / 3.65, y: h / 3.3},
+		individual: {x: w / 3.65, y: h / 3.3}
 	};
 
 var fill = d3.scale.ordinal().range(["#fc6722", "#21ff4c", "#ff3dff"]);
@@ -122,6 +122,14 @@ function start() {
 			.attr("r", function(d) { return d.radius; });
 }
 
+function amountType() {
+	force.gravity(0)
+		.friction(0.85)
+		.charge(function(d) { return -Math.pow(d.radius, 2) / 2.5; })
+		.on("tick", amounts)
+		.start();
+}
+	
 function total() {
 
 	force.gravity(0)
@@ -156,14 +164,12 @@ function fundsType() {
 		.start();
 }
 
-function amountType() {
-	force.gravity(0)
-		.friction(0.85)
-		.charge(function(d) { return -Math.pow(d.radius, 2) / 2.5; })
-		.on("tick", amounts)
-		.start();
+function amounts(e) {
+	node.each(moveToAmount(e.alpha));
+		node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) {return d.y; });
 }
-
+	
 function parties(e) {
 	node.each(moveToParties(e.alpha));
 
@@ -194,12 +200,23 @@ function all(e) {
 			.attr("cy", function(d) {return d.y; });
 }
 
-function amounts(e) {
-	node.each(moveToAmount(e.alpha));
-		node.attr("cx", function(d) { return d.x; })
-			.attr("cy", function(d) {return d.y; });
+function moveToAmount(alpha) {
+	return function(d) {
+		if (d.value <= 100000) { 
+			centreX = svgCentre.x ;
+			centreY = svgCentre.y -50;
+		} else if (d.value <= 500000) { 
+			centreX = svgCentre.x + 150;
+			centreY = svgCentre.y ;
+		} else if (d.value <= 20000000){ 
+			centreX = svgCentre.x + 300;
+			centreY = svgCentre.y + 50;
+		}
+		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
+		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
+	};
 }
-
+	
 function moveToCentre(alpha) {
 	return function(d) {
 		var centreX = svgCentre.x + 75;
@@ -262,23 +279,6 @@ function moveToFunds(alpha) {
 		} else {
 			centreX = entityCentres[d.entity].x + 60;
 			centreY = 380;
-		}
-		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
-		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
-	};
-}
-
-function moveToAmount(alpha) {
-	return function(d) {
-		if (d.value <= 100000) { 
-			centreX = svgCentre.x ;
-			centreY = svgCentre.y -50;
-		} else if (d.value <= 500000) { 
-			centreX = svgCentre.x + 150;
-			centreY = svgCentre.y ;
-		} else if (d.value <= 20000000){ 
-			centreX = svgCentre.x + 300;
-			centreY = svgCentre.y + 50;
 		}
 		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
 		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
