@@ -70,7 +70,7 @@ function transition(name) {
 		$("#view-amount-type").fadeOut(250);
 		return donorType();
 	}
-	if (name === "group-by-money-source")
+	if (name === "group-by-money-source"){
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-donor-type").fadeOut(250);
@@ -86,11 +86,12 @@ function transition(name) {
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-amount-type").fadeIn(1000);
-		return amountType();
+		return amountSort();
 	}
 
-function start() {
 
+function start() {
+	
 	node = nodeGroup.selectAll("circle")
 		.data(nodes)
 	.enter().append("circle")
@@ -103,7 +104,6 @@ function start() {
 		// though I admit I'm asking a lot of the browser and cpu with the number of nodes
 		//.style("opacity", 0.9)
 		.attr("r", 0)
-		.style("fill", function(d) { return fill(d.party); })
 		.on("mouseover", mouseover)
 		.on("mouseout", mouseout)
 		.on("click", function(d) { window.open("http://www.google.com/search?q=" + d.donor);});
@@ -120,14 +120,6 @@ function start() {
 		node.transition()
 			.duration(2500)
 			.attr("r", function(d) { return d.radius; });
-}
-
-function amountType() {
-	force.gravity(0)
-		.friction(0.85)
-		.charge(function(d) { return -Math.pow(d.radius, 2) / 2.5; })
-		.on("tick", amounts)
-		.start();
 }
 
 function total() {
@@ -155,6 +147,14 @@ function donorType() {
 		.on("tick", entities)
 		.start();
 }
+	
+function amountSort() {
+	force.gravity(0)
+		.friction(0.8)
+		.charge(function(d) { return -Math.pow(d.radius, 2.0) / 3; })
+		.on("tick", byAmount)
+		.start();
+}
 
 function fundsType() {
 	force.gravity(0)
@@ -162,13 +162,6 @@ function fundsType() {
 		.charge(function(d) { return -Math.pow(d.radius, 2.0) / 3; })
 		.on("tick", types)
 		.start();
-}
-
-function amounts(e) {
-	node.each(moveToAmount(e.alpha));
-
-		node.attr("cx", function(d) { return d.x; })
-			.attr("cy", function(d) {return d.y; });
 }
 
 function parties(e) {
@@ -180,6 +173,13 @@ function parties(e) {
 
 function entities(e) {
 	node.each(moveToEnts(e.alpha));
+
+		node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) {return d.y; });
+}
+	
+function byAmount(e) {
+	node.each(moveTobyAmount(e.alpha));
 
 		node.attr("cx", function(d) { return d.x; })
 			.attr("cy", function(d) {return d.y; });
@@ -201,25 +201,6 @@ function all(e) {
 			.attr("cy", function(d) {return d.y; });
 }
 
-function moveToAmount(alpha) {
-	return function(d) {
-		var centreX;
-		var centreY;
-		if (d.value <= 100000) { 
-			centreX = 300;
-			centreY = 500;
-		} else if (d.value <= 500000) { 
-			centreX = 750;
-			centreY = 400;
-		} else if (d.value <= 20000000){ 
-			centreX = 300;
-			centreY = 300;
-		}
-
-		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
-		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
-	};
-}
 
 function moveToCentre(alpha) {
 	return function(d) {
@@ -273,6 +254,28 @@ function moveToEnts(alpha) {
 	};
 }
 
+function moveTobyAmount(alpha) {
+	return function(d) {
+			var centreX;
+			var centreY;
+			if (d.value <= 100000) {
+				centreY = 500;
+				centreX = 300;
+				
+			} else  if (d.value <= 500000) {
+				centreY = 400;
+				centreX = 750;
+				
+			} else  if (d.value <= 20000000) {
+				centreY = 300;
+				centreX = 300;
+			}
+
+		d.x += (centreX - d.x) * (brake + 0.06) * alpha * 1.2;
+		d.y += (centreY - 100 - d.y) * (brake + 0.06) * alpha * 1.2;
+	};
+}
+
 function moveToFunds(alpha) {
 	return function(d) {
 		var centreY = entityCentres[d.entity].y;
@@ -323,7 +326,7 @@ function collide(alpha) {
 function display(data) {
 
 	maxVal = d3.max(data, function(d) { return d.amount; });
-
+	
 	var radiusScale = d3.scale.sqrt()
 		.domain([0, maxVal])
 			.range([10, 20]);
@@ -338,7 +341,6 @@ function display(data) {
 				partyLabel: d.partyname,
 				entity: d.entity,
 				entityLabel: d.entityname,
-				color: d.color,
 				x: Math.random() * w,
 				y: -y
       };
@@ -346,7 +348,7 @@ function display(data) {
       nodes.push(node)
 	});
 
-	console.log(nodes);
+
 
 	force = d3.layout.force()
 		.nodes(nodes)
@@ -357,6 +359,9 @@ function display(data) {
 
 function mouseover(d, i) {
 	// tooltip popup
+	
+	
+	
 	var mosie = d3.select(this);
 	var amount = mosie.attr("amount");
 	var donor = d.donor;
@@ -369,6 +374,7 @@ function mouseover(d, i) {
 								+ "<p> Total value: <b>&#163;" + comma(amount) + "</b></p>";
         var msg = new SpeechSynthesisUtterance("The donator is " + donor + " and the amount is " + amount + " pounds");
 	window.speechSynthesis.speak(msg);
+
 	mosie.classed("active", true);
 	d3.select(".tooltip")
   	.style("left", (parseInt(d3.select(this).attr("cx") - 80) + offset.left) + "px")
@@ -379,6 +385,7 @@ function mouseover(d, i) {
 
 function mouseout() {
 	// no more tooltips
+		
 		var mosie = d3.select(this);
                 window.speechSynthesis.cancel();
 		mosie.classed("active", false);
@@ -395,5 +402,3 @@ $(document).ready(function() {
     return d3.csv("data/7500up.csv", display);
 
 });
-
-
