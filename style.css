@@ -41,7 +41,7 @@ li {
 }
 
 /* Amount view */
-#view-amount-type {
+/*#view-amount-type {
     height: 100%;
 }
 #amount1 {
@@ -63,7 +63,7 @@ li {
     top: 120px;
     left: 425px;
     position: absolute;
-}
+}*/
 
 /*  Public or private funds view */
 
