@@ -48,7 +48,7 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
-		$("#view-by-amount").fadeOut(250);
+		//$("#view-by-amount").fadeOut(250);
 		return total();
 		//location.reload();
 	}
@@ -58,7 +58,7 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-party-type").fadeIn(1000);
-		$("#view-by-amount").fadeOut(250);
+		//$("#view-by-amount").fadeOut(250);
 		return partyGroup();
 	}
 	if (name === "group-by-donor-type") {
@@ -67,7 +67,7 @@ function transition(name) {
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-donor-type").fadeIn(1000);
-		$("#view-by-amount").fadeOut(250);
+		//$("#view-by-amount").fadeOut(250);
 		return donorType();
 	}
 	if (name === "group-by-money-source"){
@@ -76,10 +76,10 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeIn(1000);
-	        $("#view-by-amount").fadeOut(250);
+	       // $("#view-by-amount").fadeOut(250);
 		return fundsType();
 	}
-        if (name === "group-by-amount"){
+       /* if (name === "group-by-amount"){
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-donor-type").fadeOut(250);
@@ -87,7 +87,7 @@ function transition(name) {
 		$("#view-source-type").fadeOut(250);
 		$("#view-by-amount").fadeIn(1000);
 		return amountSort();
-	}
+	}*/
 
 
 function start() {
@@ -148,13 +148,13 @@ function donorType() {
 		.start();
 }
 	
-function amountSort() {
+/*function amountSort() {
 	force.gravity(0)
 		.friction(0.8)
 		.charge(function(d) { return -Math.pow(d.radius, 2.0) / 3; })
 		.on("tick", byAmount)
 		.start();
-}
+}*/
 
 function fundsType() {
 	force.gravity(0)
@@ -178,12 +178,12 @@ function entities(e) {
 			.attr("cy", function(d) {return d.y; });
 }
 	
-function byAmount(e) {
+/*function byAmount(e) {
 	node.each(moveTobyAmount(e.alpha));
 
 		node.attr("cx", function(d) { return d.x; })
 			.attr("cy", function(d) {return d.y; });
-}
+}*/
 
 function types(e) {
 	node.each(moveToFunds(e.alpha));
@@ -254,7 +254,7 @@ function moveToEnts(alpha) {
 	};
 }
 
-function moveTobyAmount(alpha) {
+/*function moveTobyAmount(alpha) {
 	return function(d) {
 			var centreX;
 			var centreY;
@@ -274,7 +274,7 @@ function moveTobyAmount(alpha) {
 		d.x += (centreX - d.x) * (brake + 0.06) * alpha * 1.2;
 		d.y += (centreY - 100 - d.y) * (brake + 0.06) * alpha * 1.2;
 	};
-}
+}*/
 
 function moveToFunds(alpha) {
 	return function(d) {
