@@ -9,7 +9,7 @@ var radius = d3.scale.sqrt().range([10, 20]);
 var partyCentres = { 
     con: { x: w / 3, y: h / 3.3}, 
     lab: {x: w / 3, y: h / 2.3}, 
-    lib: {x: w / 3, y: h / 1.8}
+    lib: {x: w / 3	, y: h / 1.8}
   };
 
 var entityCentres = { 
@@ -18,7 +18,7 @@ var entityCentres = {
 		other: {x: w / 1.15, y: h / 1.9},
 		society: {x: w / 1.12, y: h  / 3.2 },
 		pub: {x: w / 1.8, y: h / 2.8},
-		individual: {x: w / 3.65, y: h / 3.3}
+		individual: {x: w / 3.65, y: h / 3.3},
 	};
 
 var fill = d3.scale.ordinal().range(["#fc6722", "#21ff4c", "#ff3dff"]);
@@ -67,7 +67,7 @@ function transition(name) {
 		$("#view-donor-type").fadeIn(1000);
 		return donorType();
 	}
-	if (name === "group-by-money-source"){
+	if (name === "group-by-money-source")
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-donor-type").fadeOut(250);
@@ -325,11 +325,9 @@ function mouseover(d, i) {
 	mosie.classed("active", true);
 	d3.select(".tooltip")
   	.style("left", (parseInt(d3.select(this).attr("cx") - 80) + offset.left) + "px")
-        .style("top", (parseInt(d3.select(this).attr("cy") - (d.radius+150)) + offset.top) + "px")
+    .style("top", (parseInt(d3.select(this).attr("cy") - (d.radius+150)) + offset.top) + "px")
 		.html(infoBox)
 			.style("display","block");
-	var speech = new SpeechSynthesisUtterance("The donator is " + donor + " and the given amount is " + amount + " pounds");
-	window.speechSynthesis.speak(speech);
 	}
 
 function mouseout() {
@@ -340,7 +338,6 @@ function mouseout() {
 
 		d3.select(".tooltip")
 			.style("display", "none");
-	        window.speechSynthesis.cancel();
 		}
 
 $(document).ready(function() {
@@ -351,3 +348,5 @@ $(document).ready(function() {
     return d3.csv("data/7500up.csv", display);
 
 });
+
+
