@@ -367,8 +367,8 @@ function mouseover(d, i) {
 								+ "<p> Recipient: <b>" + party + "</b></p>"
 								+ "<p> Type of donor: <b>" + entity + "</b></p>"
 								+ "<p> Total value: <b>&#163;" + comma(amount) + "</b></p>";
-
-
+        var msg = new SpeechSynthesisUtterance("The donator is " + donor + " and the amount is " + amount + " pounds");
+	window.speechSynthesis.speak(msg);
 	mosie.classed("active", true);
 	d3.select(".tooltip")
   	.style("left", (parseInt(d3.select(this).attr("cx") - 80) + offset.left) + "px")
@@ -380,7 +380,7 @@ function mouseover(d, i) {
 function mouseout() {
 	// no more tooltips
 		var mosie = d3.select(this);
-
+                window.speechSynthesis.cancel();
 		mosie.classed("active", false);
 
 		d3.select(".tooltip")
