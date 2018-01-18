@@ -111,19 +111,20 @@ li {
     top: 55px;
 }
 #huge {
-    top: 185px;
-    left: 30px;
+    top: 160px;
+    left: 10px;
 }
 #large {
     top: 335px;
     left: -40px;
 }
 #normal {
-    top: 470px;
-    left: 55px;
+    top: 450px;
+    left: 30px;
 }
 #minor {
-    top: 570px;
+    top: 600px;
+    left: -30px;
 }
 /* Value scale */
 
