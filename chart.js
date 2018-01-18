@@ -257,19 +257,19 @@ function moveTobyAmount(alpha) {
 	return function(d) {
 			var centreX;
 			var centreY;
-			if (d.value <= 100001) {
+			if (d.value <= 100000) {
 				centreY = 700;
 				centreX = 300;
 				
-			} else if (d.value <= 500001) {
+			} else if (d.value <= 500000) {
 				centreY = 600;
 				centreX = 750;
 				
-			} else if (d.value <= 1000001) {
+			} else if (d.value <= 1000000) {
 				centreY = 500;
 				centreX = 300;
 				
-			} else  if (d.value <= 5000001) {
+			} else  if (d.value <= 5000000) {
 				centreY = 400;
 				centreX = 750;
 				
