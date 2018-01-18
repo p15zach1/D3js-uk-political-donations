@@ -52,6 +52,8 @@
             </li>
             <li><a href="#" onmousedown="button_sound.play()" role="button" class="pure-button switch" id="group-by-donor-type"> <p class=zoom> Split by type of donor</p> </a>
             </li>
+            <li><a href="#" onmousedown="button_sound.play()" role="button" class="pure-button switch" id="group-by-amount"> <p class=zoom> Split by Amount</p> </a>
+            </li> <!--new group by type^-->
         </ul>
     </nav>
 
@@ -202,6 +204,26 @@
                         </p>
             </div>
         </div>
+        
+        <!--new group by type-->
+        <div id = "view-by-amount">
+         <div id="enormous">
+                <h5 class=zoom>< Enormous donations</h5>
+         </div>      
+         <div id="huge">
+                <h5 class=zoom> Huge donations</h5>
+         </div>
+         <div id="large">
+               <h5 class=zoom> Large donations</h5>
+         </div>
+         <div id="normal">
+                <h5 class=zoom> Normal donations</h5>
+         </div>
+         <div id="minor">
+                <h5 class=zoom> Small donations</h5>
+         </div> 
+        </div>
+        
     </div>
     <div id="chart"></div>
 
