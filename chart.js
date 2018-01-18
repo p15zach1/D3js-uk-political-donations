@@ -48,6 +48,7 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
+		$("#view-by-amount").fadeOut(250); //new group by
 		return total();
 		//location.reload();
 	}
@@ -57,6 +58,7 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-party-type").fadeIn(1000);
+		$("#view-by-amount").fadeOut(250); //new group by
 		return partyGroup();
 	}
 	if (name === "group-by-donor-type") {
@@ -65,6 +67,7 @@ function transition(name) {
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeOut(250);
 		$("#view-donor-type").fadeIn(1000);
+		$("#view-by-amount").fadeOut(250); //new group by
 		return donorType();
 	}
 	if (name === "group-by-money-source")
@@ -73,7 +76,17 @@ function transition(name) {
 		$("#view-donor-type").fadeOut(250);
 		$("#view-party-type").fadeOut(250);
 		$("#view-source-type").fadeIn(1000);
+		$("#view-by-amount").fadeOut(250); //new group by
 		return fundsType();
+	}
+	if (name === "group-by-amount") { //new group by
+		$("#initial-content").fadeOut(250);
+		$("#value-scale").fadeOut(250);
+		$("#view-donor-type").fadeOut(250);
+		$("#view-party-type").fadeOut(250);
+		$("#view-source-type").fadeOut(250);
+		$("#view-by-amount").fadeIn(1000);
+		return amountSort();
 	}
 
 function start() {
@@ -143,6 +156,14 @@ function fundsType() {
 		.start();
 }
 
+function amountSort() { //new group by
+	force.gravity(0)
+		.friction(0.8)
+		.charge(function(d) { return -Math.pow(d.radius, 2.0) / 3; })
+		.on("tick", byAmount)
+		.start();
+}
+
 function parties(e) {
 	node.each(moveToParties(e.alpha));
 
@@ -173,6 +194,11 @@ function all(e) {
 			.attr("cy", function(d) {return d.y; });
 }
 
+function byAmount(e) { //new group by
+	node.each(moveTobyAmount(e.alpha));
+		node.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) {return d.y; });
+}
 
 function moveToCentre(alpha) {
 	return function(d) {
@@ -239,6 +265,36 @@ function moveToFunds(alpha) {
 		}
 		d.x += (centreX - d.x) * (brake + 0.02) * alpha * 1.1;
 		d.y += (centreY - d.y) * (brake + 0.02) * alpha * 1.1;
+	};
+}
+
+function moveTobyAmount(alpha) { //new group by
+	return function(d) {
+			var centreX;
+			var centreY;
+			if (d.value <= 100000) {
+				centreY = 700;
+				centreX = 300;
+				
+			} else if (d.value <= 500000) {
+				centreY = 600;
+				centreX = 750;
+				
+			} else if (d.value <= 1000000) {
+				centreY = 500;
+				centreX = 300;
+				
+			} else  if (d.value <= 5000000) {
+				centreY = 400;
+				centreX = 750;
+				
+			} else  if (d.value <= maxVal) {
+				centreY = 300;
+				centreX = 300;
+			}
+
+		d.x += (centreX - d.x) * (brake + 0.06) * alpha * 1.2;
+		d.y += (centreY - 100 - d.y) * (brake + 0.06) * alpha * 1.2;
 	};
 }
 
