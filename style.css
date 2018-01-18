@@ -111,7 +111,7 @@ li {
     top: 55px;
 }
 #huge {
-    top: 160px;
+    top: 150px;
     left: 10px;
 }
 #large {
@@ -119,12 +119,12 @@ li {
     left: -40px;
 }
 #normal {
-    top: 450px;
-    left: 30px;
+    top: 435px;
+    left: 20px;
 }
 #minor {
     top: 600px;
-    left: -30px;
+    left: -20px;
 }
 /* Value scale */
 
