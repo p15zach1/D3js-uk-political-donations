@@ -257,20 +257,19 @@ function moveTobyAmount(alpha) {
 	return function(d) {
 			var centreX;
 			var centreY;
-	/* Analoga to value kathe dwrhth to vazei sto centreY, centreX */
-			if (d.value <= 25001) {
+			if (d.value <= 100001) {
 				centreY = 700;
 				centreX = 300;
 				
-			} else if (d.value <= 50001) {
+			} else if (d.value <= 500001) {
 				centreY = 600;
 				centreX = 750;
 				
-			} else if (d.value <= 100001) {
+			} else if (d.value <= 1000001) {
 				centreY = 500;
 				centreX = 300;
 				
-			} else  if (d.value <= 1000001) {
+			} else  if (d.value <= 5000001) {
 				centreY = 400;
 				centreX = 750;
 				
