@@ -388,6 +388,7 @@ function mouseover(d, i) {
 	var speech = new SpeechSynthesisUtterance("The donator is " + donor + " and the given amount is " + amount + " pounds");
 	window.speechSynthesis.speak(speech);
 	
+	var imageFile = "https://raw.githubusercontent.com/ioniodi/D3js-uk-political-donations/master/photos/" + donor + ".ico";
 	var infoPic = document.createElement("img");
                      infoPic.setAttribute("src","http://www.bizreport.com/2011/02/03/android-logo-200x200.jpg");
                      infoPic.setAttribute("height","42");
