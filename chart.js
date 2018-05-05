@@ -387,6 +387,14 @@ function mouseover(d, i) {
 			.style("display","block");
 	var speech = new SpeechSynthesisUtterance("The donator is " + donor + " and the given amount is " + amount + " pounds");
 	window.speechSynthesis.speak(speech);
+	
+	var infoPic = document.createElement("img");
+                     infoPic.setAttribute("src","http://www.bizreport.com/2011/02/03/android-logo-200x200.jpg");
+                     infoPic.setAttribute("height","42");
+                     infoPic.setAttribute("width","42");
+                     infoPic.setAttribute("onerror",'this.src=\"https://github.com/favicon.ico\";');
+               document.getElementById("cssImg").insertBefore(infoPic,document.getElementById("cssImg").firstChild);
+               infoPic.src = imageFile;
 	}
 
 function mouseout() {
