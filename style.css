@@ -126,6 +126,16 @@ li {
     top: 650px;
     left: -20px;
 }
+
+#cssPic{
+    position:fixed;
+    display:inline-block;
+    left: 94%;
+    top: 6%;
+    height: 100%;
+    width: 42px; 
+}
+
 /* Value scale */
 
 #value-scale {
